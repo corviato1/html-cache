@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>pcgslabs.com Tatsugiri EX</title>
+  <link rel="icon" type="image/x-icon" href="https://ipfs.io/ipfs/QmRxfMc5JKnAUBD7nw2CvM1jV1p5iet94iuUv7bxWNfyJA" />
+
+  <style>
+    :root {
+      --color1: #ff9500;
+      --color2: #ff65a3;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #0d0d0d;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      background-color: #1c1c1c;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Holographic Card Image Styles */
+    .image-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      isolation: isolate;
+    }
+
+    .image-container img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #333;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+      display: block;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Holographic Effect Layers */
+    .image-container:before,
+    .image-container:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background-repeat: no-repeat;
+      mix-blend-mode: color-dodge;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .image-container:before {
+      background-position: 50% 50%;
+      background-size: 300% 300%;
+      background-image: linear-gradient(
+        115deg,
+        transparent 0%,
+        var(--color1) 25%,
+        transparent 47%,
+        transparent 53%,
+        var(--color2) 75%,
+        transparent 100%
+      );
+      opacity: .5;
+      filter: brightness(.5) contrast(1);
+      z-index: 2;
+    }
+
+    .image-container:after {
+      opacity: .75;
+      background-image: url("https://ipfs.io/ipfs/QmdinZQdEpNCZzs58uZJAqpZGVRxCeV2RqmbEMxPmTYVMB"), 
+        url(https://ipfs.io/ipfs/Qmbppwv5D9Umj4jEL4aeNZPh96qEXNiLdGRVcxLr7H51kv), 
+        linear-gradient(125deg, #ff008450 15%, #fca40040 30%, #ffff0030 40%, #00ff8a20 60%, #00cfff40 70%, #cc4cfa50 85%);
+      background-position: 50% 50%;
+      background-size: 160%;
+      background-blend-mode: overlay;
+      z-index: 3;
+      filter: brightness(1) contrast(1);
+      mix-blend-mode: color-dodge;
+    }
+
+    /* Animation for static holographic effect */
+    @keyframes staticHoloSparkle {
+      0%, 100% {
+        opacity: .75; 
+        background-position: 50% 50%; 
+        filter: brightness(1.2) contrast(1.25);
+      }
+      25% {
+        opacity: .65; 
+        background-position: 52% 48%; 
+        filter: brightness(1.1) contrast(1.15);
+      }
+      50% {
+        opacity: .70; 
+        background-position: 48% 52%; 
+        filter: brightness(1.15) contrast(1.2);
+      }
+      75% {
+        opacity: .60; 
+        background-position: 50% 50%; 
+        filter: brightness(1.05) contrast(1.1);
+      }
+    }
+
+    @keyframes staticHoloGradient {
+      0%, 100% {
+        opacity: 0.5;
+        background-position: 50% 50%;
+        filter: brightness(.5) contrast(1);
+      }
+      25% {
+        opacity: 0.55;
+        background-position: 51% 49%;
+        filter: brightness(.55) contrast(1.05);
+      }
+      50% {
+        opacity: 0.45;
+        background-position: 49% 51%;
+        filter: brightness(.45) contrast(0.95);
+      }
+      75% {
+        opacity: 0.5;
+        background-position: 50% 50%;
+        filter: brightness(.5) contrast(1);
+      }
+    }
+
+    .image-container:before {
+      animation: staticHoloGradient 8s ease-in-out infinite;
+    }
+    
+    .image-container:after {
+      animation: staticHoloSparkle 8s ease-in-out infinite;
+    }
+
+    /* Original CSS from your file */
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 4rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #ff9500, #ff65a3, #7ee8fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-subtitle {
+      font-size: 1rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #FFD700, #FFEA00, #FFD700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 2.5s infinite linear;
+      position: relative;
+    }
+
+    .grades {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .grading-box {
+      background: #2a2a2a;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      border: 2px solid #2196f3;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .grading-box a {
+      font-weight: bold;
+    }
+    
+    .overall-grade {
+      font-size: 1.5rem;
+      color: gold;
+      font-weight: bold;
+    }
+
+    .grade-label {
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .grading-breakdown {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      gap: 0.5rem 1.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .attacks {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .attack-block {
+      background: #2d2d2d;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #2a2a2a;
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      border: 2px solid #2196f3;
+    }
+
+    .attack-name {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #f0a500;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .attack-name img {
+      height: 1em;
+      vertical-align: middle;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .visit-link {
+      margin-top: 1rem;
+    }
+
+    .visit-link a {
+      color: #4fc3f7;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -100% 0; }
+      100% { background-position: 100% 0; }
+    }
+
+    @media screen and (min-width: 768px) {
+      .flex-container {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .image-container {
+        width: 48%;
+      }
+
+      .text-content {
+        width: 48%;
+      }
+
+      .card-wrapper {
+        padding: 3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card-wrapper">
+    <div class="flex-container">
+      <div class="image-container">
+        <img src="https://ipfs.io/ipfs/Qmf4XPhygosWExnyDaYnjXMmtMXrGqZcXg1Y4cTnpcqjZD" alt="Tatsugiri EX Slab" />
+      </div>
+      <div class="text-content">
+        <div>
+          <div class="card-title">Tatsugiri EX</div>
+          <div class="card-subtitle">SV08 Surging Sparks | Full Art Ultra Rare</div>
+        </div>
+        <div class="grades">
+          <div class="grading-box">
+            <div class="overall-grade">&nbsp;9.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div class="grade-label"><img src="https://ipfs.io/ipfs/QmRxfMc5JKnAUBD7nw2CvM1jV1p5iet94iuUv7bxWNfyJA" alt="Favicon" class="favicon-icon" />&nbsp;&nbsp;&nbsp;Gem Mint&nbsp;&nbsp;&nbsp;</div>
+          </div>
+          <div class="grading-breakdown">
+            <div class="grading-box"><a>&nbsp;&nbsp;&nbsp;10 Centering&nbsp;&nbsp;&nbsp;</a></div>
+            <div class="grading-box"><a>&nbsp;&nbsp;9.5 Corners&nbsp;&nbsp;</a></div>
+            <div class="grading-box"><a>&nbsp;&nbsp;10 Edges&nbsp;&nbsp;</a></div>
+            <div class="grading-box"><a>&nbsp;&nbsp;9 Surface&nbsp;&nbsp;</a></div>
+          </div>
+        </div>
+        <div class="attacks">
+          <div class="attack-block">
+            <div class="attack-name">
+              <img src="https://ipfs.io/ipfs/QmUzk1BYR6PGBA995b7AHipVT8c76Uj6UB4Ac3iQG1KPXx" alt="Fire" />
+              <img src="https://ipfs.io/ipfs/QmZW5M96iFpQjn7N3sKaUmCN4Hj4Y2xdizgtqK2tWEjNkq" alt="Water" />
+              Surprise Pump - 100 Damage
+            </div>
+            This attack's damage isn't affected by any effects on your opponent's Active Pokémon.
+          </div>
+          <div class="attack-block">
+            <div class="attack-name">
+              <img src="https://ipfs.io/ipfs/QmUzk1BYR6PGBA995b7AHipVT8c76Uj6UB4Ac3iQG1KPXx" alt="Fire" />
+              <img src="https://ipfs.io/ipfs/QmZW5M96iFpQjn7N3sKaUmCN4Hj4Y2xdizgtqK2tWEjNkq" alt="Water" />
+              <img src="https://ipfs.io/ipfs/QmUR65x2eFsDj5NdBseT6hXKuM4GL4LBTWmAChjPsbYJvk" alt="Dark" />
+              Cinnabar Lure
+            </div>
+            Look at the top 10 cards of your deck. You may put any number of Pokémon you find there onto your Bench. Shuffle the other cards back into your deck.
+          </div>
+        </div>
+        <div class="visit-link">
+          Visit <a href="https://pcgslabs.com/" target="_blank">pcgslabs.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
